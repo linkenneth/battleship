@@ -17,20 +17,17 @@
 #include "gameState.h"
 #endif
 
-#ifndef _INCLUDE_STDBOOL_H
-#define _INCLUDE_STDBOOL_H
 #include <stdbool.h>
-#endif
-
-#ifndef _INCLUDE_STDIO_H
-#define _INCLUDE_STDIO_H
 #include <stdio.h>
-#endif
+#include <stdlib.h>
 /* === END HEADERS === */
 
 
-Coord *placeShip_human(GameState *state) {
-  gets(input);
+Coord *placeShip_human(GameState *state, int len) {
+  printf("Place a ship of length %d\n", len);
+  printf("Gimme the head's X coord:\n");
+  int hxCoor = atoi(gets(input));
+
 }
 
 Coord *attack_human(GameState *state) {
