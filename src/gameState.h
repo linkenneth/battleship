@@ -37,13 +37,9 @@ typedef struct {
    */
   unsigned int turnsTaken;
   /**
-   *  0 for Player 0, 1 for Player 1.
-   */
-  bool turn;
-  /**
    *  The targets of a certain Player.
    */
-  Coord *targets;
+  Coord targets[32];
   /**
    *  Length of targets.
    */
