@@ -27,6 +27,18 @@ typedef struct {
    */
   Coord (*attack)(GameState *);
   /**
+   *  The game calls this function after this player attempts an
+   *  attack. This function allows the player to be notified of whether or
+   *  not his attack was successful.
+   */
+  void (*attackResult)(bool success);
+  /**
+   *  The game calls this function after the opponent attempts an
+   *  attack. This function allows the player to be notified of whether or
+   *  not the opponent's attack was successful.
+   */
+  void (*opponentAttacked)(bool hit);
+  /**
    *  The name of the player.
    */
   char name[32];

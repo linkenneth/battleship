@@ -27,7 +27,7 @@ int NUM_SHIPS_TO_PLACE = 3;
  */
 void placePhase() {
   for (int i = 0; i < NUM_SHIPS_TO_PLACE; i++) {
-    SHIPS_TO_PLACE[i];
+    /* SHIPS_TO_PLACE[i] = 3; */
   }
 }
 
