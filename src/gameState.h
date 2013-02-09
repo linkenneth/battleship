@@ -10,6 +10,16 @@
 #include <stdbool.h>
 
 /**
+ *  Abstraction of the coordinates of the board. The numbering starts on
+ *  the bottom left corner of the board at (0,0) and behaves like a normal
+ *  x-y graph.
+ */
+typedef struct {
+  int x;
+  int y;
+} Coord;
+
+/**
  *  The most essential GameState object encapsulates all the data of a
  *  state of a game.
  */
@@ -22,6 +32,4 @@ typedef struct {
  *  indicate that there is a ship/target at the location, while false
  *  values indicate that there is not.
  */
-bool **getBoard(int player);
-
-int test();
+bool **getBoard(GameState *state, Player *player);
