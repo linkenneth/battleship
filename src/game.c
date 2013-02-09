@@ -69,7 +69,7 @@ void start() {
  *  these options to create a new game. The processing of the options
  *  should be left to the game itself.
  */
-int main(int argc, int *argv[]) {
+int main(int argc, char *argv[]) {
   // parse some shit, then
   start();
   return 0;
