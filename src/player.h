@@ -10,16 +10,16 @@
 typedef struct {
   /**
    *  This function places a ship on the board. Must return an array of at
-   *  least 4 ints specifying the (x1,y1,x2,y2) coordinates that define
-   *  where the ship is placed.
+   *  least 2 Coords specifying the (x1,y1) and (x2,y2) coordinates that
+   *  define where the ship is placed.
    */
-  (int *) (*placeShip)(GameState);
+  (Coord *) (*placeShip)(GameState);
   /**
-   *  This function attacks the opponent's ships. Must return an array of
-   *  at least 2 ints specifying the (x,y) coordinates that the player
-   *  chooses to attack.
+   *  This function attacks the opponent's ships. Must return a single
+   *  Coord specifying the (x,y) coordinates that the player chooses to
+   *  attack.
    */
-  (int *) (*attack)(GameState);
+  (Coord) (*attack)(GameState);
 } Player;
 
 /**

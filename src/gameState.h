@@ -15,16 +15,41 @@
  *  x-y graph.
  */
 typedef struct {
-  int x;
-  int y;
+  unsigned int x;
+  unsigned int y;
 } Coord;
 
 /**
- *  The most essential GameState object encapsulates all the data of a
- *  state of a game.
+ *  The GameState object encapsulates all the data of a state of a
+ *  game. Shit like Coords of yet-to-be-sunk targets, number of turns, etc.
  */
 typedef struct {
-  
+  /**
+   *  Every guess is a turn, regardless of whether it is successful (in
+   *  which case it is the same player's turn again) or not (in which case
+   *  it is the opponent's turn).
+   */
+  unsigned int turnsTaken;
+  /**
+   *  0 for Player 0, 1 for Player 1.
+   */
+  boolean turn;
+  /**
+   *  The targets of Player 0.
+   */
+  (Coord *) targets_0;
+  /**
+   *  Length of targets_0.
+   */
+  unsigned int targetsLeft_0;
+  /**
+   *  The targets of Player 1.
+   */
+  (Coord *) targets_1;
+  /**
+   *  Length of targets_1.
+   */
+  unsigned int targetsLeft_1;
 } GameState;
 
 /**
