@@ -28,8 +28,8 @@
 #endif
 /* === END HEADERS === */
 
+
 Coord *placeShip_human(GameState *state) {
-  char input[32];
   gets(input);
 }
 
