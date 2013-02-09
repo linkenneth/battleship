@@ -4,6 +4,33 @@
  *  be stored in GameState.c.
  */
 
+/* === BEGIN HEADERS === */
+#ifndef _INCLUDE_GAMESTATE_H
+#define _INCLUDE_GAMESTATE_H
+#include "gameState.h"
+#endif
+
+#ifndef _INCLUDE_PLAYER_H
+#define _INCLUDE_PLAYER_H
+#include "player.h"
+#endif
+
+#ifndef _INCLUDE_UTILS_H
+#define _INCLUDE_UTILS_H
+#include "utils.h"
+#endif
+
+#ifndef _INCLUDE_STDLIB_H
+#define _INCLUDE_STDLIB_H
+#include <stdlib.h>
+#endif
+
+#ifndef _INCLUDE_STDIO_H
+#define _INCLUDE_STDIO_H
+#include <stdio.h>
+#endif
+/* === END HEADERS === */
+
 /**
  *  The main function should handle reading the various options and passing
  *  these options to create a new game. The processing of the options

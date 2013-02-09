@@ -5,7 +5,13 @@
  *  idea is for the game to dereference these pointers and call the
  *  respective functions when it wants.
  */
-#include <GameState.h>
+
+/* === BEGIN HEADERS === */
+#ifndef _INCLUDE_GAMESTATE_H
+#define _INCLUDE_GAMESTATE_H
+#include "gameState.h"
+#endif
+/* === END HEADERS === */
 
 typedef struct {
   /**
@@ -13,13 +19,13 @@ typedef struct {
    *  least 2 Coords specifying the (x1,y1) and (x2,y2) coordinates that
    *  define where the ship is placed.
    */
-  (Coord *) (*placeShip)(GameState);
+  Coord *(*placeShip)(GameState *);
   /**
    *  This function attacks the opponent's ships. Must return a single
    *  Coord specifying the (x,y) coordinates that the player chooses to
    *  attack.
    */
-  (Coord) (*attack)(GameState);
+  Coord (*attack)(GameState *);
 } Player;
 
 /**

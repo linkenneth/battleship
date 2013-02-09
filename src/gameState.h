@@ -1,13 +1,16 @@
 /*
  *  A GameState represents the board, whose turn it is, and in general,
  *  everything possible about the state of the game. It should not include
- *  any sort of GAME logic, however, it should include any functions that
- *  manipulate or update the game state. So, for example, it shouldn't do
- *  error-checking when the player makes an illegal move, but it should
- *  contain the function the change the game state after it is determined
- *  that the move is legal.
+ *  any sort of GAME logic. Functions that help make the job of modifying
+ *  the GameState easier should be included in utils.c or game.c.
  */
+
+/* === BEGIN HEADERS === */
+#ifndef _INCLUDE_STDBOOL_H
+#define _INCLUDE_STDBOOL_H
 #include <stdbool.h>
+#endif
+/* === END HEADERS === */
 
 /**
  *  Abstraction of the coordinates of the board. The numbering starts on
@@ -33,11 +36,11 @@ typedef struct {
   /**
    *  0 for Player 0, 1 for Player 1.
    */
-  boolean turn;
+  bool turn;
   /**
    *  The targets of Player 0.
    */
-  (Coord *) targets_0;
+  Coord *targets_0;
   /**
    *  Length of targets_0.
    */
@@ -45,16 +48,9 @@ typedef struct {
   /**
    *  The targets of Player 1.
    */
-  (Coord *) targets_1;
+  Coord *targets_1;
   /**
    *  Length of targets_1.
    */
   unsigned int targetsLeft_1;
 } GameState;
-
-/**
- *  Returns a 2-dimensional array representing the board. True values
- *  indicate that there is a ship/target at the location, while false
- *  values indicate that there is not.
- */
-bool **getBoard(GameState *state, Player *player);
