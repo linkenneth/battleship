@@ -27,6 +27,7 @@ char SHIPS_TO_PLACE[] = { 3, 4, 5 };
  *  should be left to the game itself.
  */
 int main(int argc, int *argv[]) {
+  start();
   return 0;
 }
 
@@ -38,7 +39,24 @@ int main(int argc, int *argv[]) {
  *  attacking where they think the opponent's ship is. The first player to
  *  win is to one to sink all of their opponent's ships.
  */
-void start();
+void start() {
+  placePhase();
+  attackPhase();
+}
+
+/**
+ *  Handles the logic for the 'placing' phase.
+ */
+void placePhase() {
+
+}
+
+/**
+ *  Handles the logic for the 'attacking' phase.
+ */
+void attackPhase() {
+
+}
 
 /**
  *  Returns a number depending on whether the game is over. Returns 1 if
@@ -46,8 +64,3 @@ void start();
  *  is not yet over.
  */
 signed int gameOver();
-
-/**
- *
- */
-
