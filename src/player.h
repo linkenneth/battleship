@@ -26,6 +26,10 @@ typedef struct {
    *  attack.
    */
   Coord (*attack)(GameState *);
+  /**
+   *  The name of the player.
+   */
+  char name[32];
 } Player;
 
 /**

@@ -1,33 +1,16 @@
 /*
  *  The game module should only contain only the logic for Battleship. Data
  *  about the state of the game (ie. how many ships are sunk, etc.) should
- *  be stored in GameState.c.
+ *  be stored in GameState.c. The game module should also not directly use
+ *  the terminal or anything else to ASK for commands/moves. This is not
+ *  flexible. Instead, the game should delegate move-making and how to
+ *  "ask" for moves by the player's function itself.
  */
 
 /* === BEGIN HEADERS === */
-#ifndef _INCLUDE_GAMESTATE_H
-#define _INCLUDE_GAMESTATE_H
-#include "gameState.h"
-#endif
-
-#ifndef _INCLUDE_PLAYER_H
-#define _INCLUDE_PLAYER_H
-#include "player.h"
-#endif
-
-#ifndef _INCLUDE_UTILS_H
-#define _INCLUDE_UTILS_H
-#include "utils.h"
-#endif
-
-#ifndef _INCLUDE_STDLIB_H
-#define _INCLUDE_STDLIB_H
-#include <stdlib.h>
-#endif
-
-#ifndef _INCLUDE_STDIO_H
-#define _INCLUDE_STDIO_H
-#include <stdio.h>
+#ifndef _INCLUDE_GAME_H
+#define _INCLUDE_GAME_H
+#include "game.h"  // all other includes are here
 #endif
 /* === END HEADERS === */
 
@@ -51,5 +34,13 @@ int main(int argc, int *argv[]) {
 void start();
 
 /**
- *  
+ *  Returns a number depending on whether the game is over. Returns 1 if
+ *  Player 1 wins, returns 0 if Player 0 wins, and returns -1 if the game
+ *  is not yet over.
  */
+signed int gameOver();
+
+/**
+ *
+ */
+
