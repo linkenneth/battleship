@@ -24,7 +24,10 @@ typedef struct {
 
 /**
  *  The GameState object encapsulates all the data of a state of a
- *  game. Shit like Coords of yet-to-be-sunk targets, number of turns, etc.
+ *  game. Shit like Coords of yet-to-be-sunk targets, number of turns,
+ *  etc. Each player has his own GameState that only shows him the ships
+ *  that he has. Obviously, he shouldn't be able to see what ships the
+ *  other guy has.
  */
 typedef struct {
   /**
@@ -38,19 +41,11 @@ typedef struct {
    */
   bool turn;
   /**
-   *  The targets of Player 0.
+   *  The targets of a certain Player.
    */
-  Coord *targets_0;
+  Coord *targets;
   /**
-   *  Length of targets_0.
+   *  Length of targets.
    */
-  unsigned int targetsLeft_0;
-  /**
-   *  The targets of Player 1.
-   */
-  Coord *targets_1;
-  /**
-   *  Length of targets_1.
-   */
-  unsigned int targetsLeft_1;
+  unsigned int targetsLeft;
 } GameState;

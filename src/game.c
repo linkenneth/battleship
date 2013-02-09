@@ -14,6 +14,13 @@
 #endif
 /* === END HEADERS === */
 
+#define BOARD_WIDTH 10
+#define BOARD_HEIGHT 10
+/**
+ *  Denotes lengths of ships to be placed.
+ */
+char SHIPS_TO_PLACE[] = { 3, 4, 5 };
+
 /**
  *  The main function should handle reading the various options and passing
  *  these options to create a new game. The processing of the options
