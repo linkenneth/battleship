@@ -14,8 +14,6 @@
 #endif
 /* === END HEADERS === */
 
-#define BOARD_WIDTH 10
-#define BOARD_HEIGHT 10
 /**
  *  Denotes lengths of ships to be placed.
  */
