@@ -11,6 +11,8 @@
 #define _INCLUDE_GAMESTATE_H
 #include "gameState.h"
 #endif
+
+#include <stdlib.h>
 /* === END HEADERS === */
 
 /**
