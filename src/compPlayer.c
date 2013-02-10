@@ -27,19 +27,41 @@
 /* === GLOBALS === */
 /** Attack attempts made and their results. */
 int g_Attacks[BOARD_WIDTH][BOARD_HEIGHT];
+Coord lastAttack;
+int nextY = 0;
 
 /* === FUNCTIONS === */
 
-Coord *placeShip_comp(GameState *state, int shipLength) {
-  
+Ship placeShip_comp(GameState *state, int shipLength) {
+  int interval = NUM_SHIPS_TO_PLACE / BOARD_HEIGHT;
+  int startY = randInt(nextY, nextY + interval);
+  nextY += interval;
+  int startX = randInt(0, BOARD_WIDTH - shipLength);
+
+  Coord *c = (Coord *) malloc(shipLength * sizeof(Coord));
+  for (int i = 0; i < shipLength; i++) {
+    c[i].x = startX + i;
+    c[i].y = startY + i;
+  }
+  Ship ship;
+  ship.parts = c;
+  ship.sunk = false;
+  ship.size = shipLength;
+  printf("Bob secretly placed a ship.\n");
+  return ship;
 }
 
 Coord attack_comp(GameState *state) {
-
+  Coord *c = (Coord *) malloc(sizeof(Coord));
+  c->x = randSkewed(BOARD_WIDTH);
+  c->y = randSkewed(BOARD_HEIGHT);
+  lastAttack = c;
+  printf("Bob attacks (%d,%d)! OH SHIT\n", c->x, c->y);
+  return lastAttack;
 }
 
 void attackResult_comp(int result) {
-  
+  g_Attacks[lastAttack.x][lastAttack.y] = result;
 }
 
 void opponentAttacked_comp(bool hit) {

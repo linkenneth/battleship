@@ -27,4 +27,6 @@ typedef struct {
    */
   bool sunk;
 
+  /* size of the ship */
+  int size;
 } Ship;
