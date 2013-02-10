@@ -25,9 +25,8 @@ int NUM_SHIPS_TO_PLACE = 3;
  *  Handles the logic for the 'placing' phase.
  */
 void placePhase(GameState *gamestates, int shipnum) {
-  int nump = sizeof(*gamestates)/sizeof(GameState);
   Player *currplayer; Ship *shiplist;
-  for (int i = 0; i < nump; i++) {
+  for (int i = 0; i < 2; i++) {
     *currplayer = *gamestates[i]->player;
     *shiplist = *gamestates[i]->ships;
     for (int k = 0; k < shipnum; k++) {
@@ -42,10 +41,30 @@ void placePhase(GameState *gamestates, int shipnum) {
  *  Takes the array of GameStates
  *  
  */
-void attackPhase(GameState gameStates[]) {
-  while (not gameOver()) {
-
+void attackPhase(GameState *gameStates, int shipnum) {
+  Coord attacked;
+  int otherPlayer;
+  int shipLen;
+  Coord curShipCoord;
+  for (p=0; p<2; p++) {//for each player
+    //get coordinate that the player wants to attack
+    attacked = gameStates[p].player.attack(gameStates[p]);
+    for (i=0; i<shipnum; i++) { //for each ship in the attacked player
+      int otherPlayer = -(p-1)
+      int shipLen = gameStates[otherPlayer].ships[i].size;
+      for (j=0; j<shipLen; j++) { //for each coordinate in the ship
+        Coord curShipCoord = gameStates[otherPlayer].ships[i][j]
+        if (curShipCoord.Equals(attacked)) {
+	  //if the attacked Coord is a ship, sink that Coord
+	  curShipCoord.sunk = false;
+	  //print whether the attack was a hit
+	  free(attacked);
+        };
+      };
+    };
   };
+  
+
 }
 
 /**
@@ -53,9 +72,26 @@ void attackPhase(GameState gameStates[]) {
  *  Player 1 wins, returns 0 if Player 0 wins, and returns -1 if the game
  *  is not yet over.
  */
-bool gameOver(GameState gameStates[]) {
+bool gameOver(GameState *gameStates, int shipnum) {
   //check if at least one player has all ships sunk
-  for (i=0; i<
+  for (int p=0; p<2; p++) {
+    int defeated = 0; //number of sunk ships
+    for (int i=0; i<shipnum; i++) {
+      int shipLen = gameStates[p].ships[i].size;
+      int shipSunk = 0;
+      for (j=0;j<shipLen;j++) {
+	if (gameStates[p].ships[i][j].sunk) {
+	  shipSunk++;
+	};
+      };
+      if (shipSunk.Equals(shipLen)) {
+	defeated++;
+      };
+    };
+    if (defeated.Equals(shipnum)) {
+      return true;
+    };
+  }; 
   return false; 
 };
 
@@ -69,13 +105,15 @@ bool gameOver(GameState gameStates[]) {
  */
 void start() {
   GameState gameStates[2];
+  int shipNum = 2;
   for (int i = 0; i < 2; i++) {
-    gameStates[i].turnsTaken = 0;
-    gameStates[i].targetsLeft = 0;
+    int shipLen = gameStates[otherPlayer].ships[i].size;
   }
 
-  placePhase();
-  attackPhase();
+  placePhase(gameStates, shipnum);
+  while (not gameOver()){
+    attackPhase(gameStates);
+  };
 }
 
 /**
@@ -85,6 +123,7 @@ void start() {
  */
 int main(int argc, char *argv[]) {
   // parse some shit, then
+  //Take input for number of human and AI players
   start();
   return 0;
 }

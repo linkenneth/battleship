@@ -21,6 +21,7 @@
 typedef struct {
   unsigned int x;
   unsigned int y;
+  bool hit;
 } Coord;
 
 /**
@@ -31,15 +32,9 @@ typedef struct {
  *  other guy has.
  */
 typedef struct {
-   /**
-   *  The targets of a certain Player.
-   */
-  Coord targets[32];
-  /**
-   *  Length of targets.
-   */
+
   Player* player;
 
-  Ship ships[];
+  Ship ships[2];
 
 } GameState;
