@@ -74,7 +74,7 @@ void attackPhase(GameState *gameStates, int shipnum) {
       shipLen = gameStates[otherPlayer].ships[i].size;
       for (int j = 0; j < shipLen; j++) { //for each coordinate in the ship
 	ship = gameStates[otherPlayer].ships[i];
-        curShipCoord = &ship.parts[j];
+        curShipCoord = &(ship.parts[j]);
         if (curShipCoord->x == attacked.x && curShipCoord->y == attacked.y) {
 	  //if the attacked Coord is a ship, sink that Coord
 	  if (curShipCoord->hit = true) {
@@ -82,10 +82,10 @@ void attackPhase(GameState *gameStates, int shipnum) {
 	  }
 	  curShipCoord->hit = true;
 	  hit = true;
-	  sunk = false;
+	  sunk = true;
 	  for (int k = 0; k < shipLen; k++) {
-	    if (ship.parts[k].hit) {
-	      sunk = true;
+	    if (!ship.parts[k].hit) {
+	      sunk = false;
 	      break;
 	    }
 	  }
