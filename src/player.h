@@ -12,7 +12,7 @@
 #include "gameState.h"
 /* === END HEADERS === */
 
-typedef struct {
+typedef struct Player {
   /**
    *  This function places a ship on the board. This function takes a
    *  GameState that gives the player information of the data, and a second

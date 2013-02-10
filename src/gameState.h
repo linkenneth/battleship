@@ -12,6 +12,8 @@
 #include <stdbool.h>
 /* === END HEADERS === */
 
+struct Player;
+
 /**
  *  Abstraction of the coordinates of the board. The numbering starts on
  *  the bottom left corner of the board at (0,0) and behaves like a normal
@@ -33,7 +35,6 @@ typedef struct {
   bool sunk;
 } Ship;
 
-
 /**
  *  The GameState object encapsulates all the data of a state of a
  *  game. Shit like Coords of yet-to-be-sunk targets, number of turns,
@@ -42,8 +43,8 @@ typedef struct {
  *  other guy has.
  */
 typedef struct {
-  Player *player;
+  struct Player *player;
   Ship *ships;
-}GameState;
+} GameState;
 
 #endif

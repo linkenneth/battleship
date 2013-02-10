@@ -26,7 +26,7 @@ void placePhase(GameState *gamestates) {
     currplayer = gamestates[i].player;
     shiplist = gamestates[i].ships;
     for (int k = 0; k < 6; k++) {
-      shiplist[k] = currplayer->placeShip(gamestates + i, 3);  // change 3
+      shiplist[k] = currplayer->placeShip(&gamestates[i], 3);  // change 3
     }
   }
 }
@@ -46,15 +46,15 @@ bool gameOver(GameState *gameStates, int shipnum) {
       shipLen = gameStates[p].ships[i].size;
       shipSunk = 0;
       for (int j=0;j<shipLen;j++) {
-	if (gameStates[p].ships[i][j].sunk) {
+	if (gameStates[p].ships[i].parts[j].hit) {
 	  shipSunk++;
 	};
       };
-      if (shipSunk.Equals(shipLen)) {
+      if (shipSunk == shipLen) {
 	defeated++;
       };
     };
-    if (defeated.Equals(shipnum)) {
+    if (defeated == shipnum) {
       return true;
     };
   }; 
@@ -72,19 +72,18 @@ void attackPhase(GameState *gameStates, int shipnum) {
   int shipLen;
   Coord curShipCoord;
   int turn = 0;
-  while (!gameOver()) {
-    attacked = gameStates[turn].player.attack(gameStates[turn]);
+  while (!gameOver(gameStates, shipnum)) {
+    attacked = gameStates[turn].player->attack(&gameStates[turn]);
     for (int i=0; i<shipnum; i++) { //for each ship in the attacked player
-      otherPlayer = -(turn-1)
+      otherPlayer = -(turn-1);
       shipLen = gameStates[otherPlayer].ships[i].size;
       for (int j=0; j<shipLen; j++) { //for each coordinate in the ship
-        curShipCoord = gameStates[otherPlayer].ships[i][j]
-        if (curShipCoord.Equals(attacked)) {
+        curShipCoord = gameStates[otherPlayer].ships[i].parts[j];
+        if (curShipCoord.x == attacked.x && curShipCoord.y == attacked.y) {
 	  //if the attacked Coord is a ship, sink that Coord
-	  curShipCoord.sunk = false;
+	  curShipCoord.hit = true;
 	  //print whether the attack was a hit
-	  gameStates[turn].player.attackResult();
-	  
+	  gameStates[turn].player->attackResult(curShipCoord.hit);
         } else {
 	  turn = otherPlayer;
 	}
@@ -119,29 +118,30 @@ void start(int num) {
     printf("Two human players selected! GLHF!\n");
   }
   GameState gameStates[2];
-  gamestates[0].player = p1;
-  gamestates[1].player = p2;
-  placePhase(gamestates);
-  attackPhase(gamestates);
+  gameStates[0].player = p1;
+  gameStates[1].player = p2;
+  placePhase(gameStates);
+  attackPhase(gameStates, NUM_SHIPS);
 }
 
 
- void usage() {
-   char *help = "PLZ USE ./game [1~2] (For number of AI. By default two humans.)\n";
-   printf("%s", help);
- }
+void usage() {
+  char *help = "PLZ USE ./game [1~2] (For number of AI. By default two humans.)\n";
+  printf("%s", help);
+}
 
- void aimsg() {
-   char *help = "Too many AI players! Only up to 2 allowed.\n";
-   printf("%s", help);
- }
+void aimsg() {
+  char *help = "Too many AI players! Only up to 2 allowed.\n";
+  printf("%s", help);
+}
+
 /**
  *  The main function should handle reading the various options and passing
  *  these options to create a new game. The processing of the options
  *  should be left to the game itself.
  */
 int main(int argc, char *argv[]) {
-  inst numai;
+  int numai;
   if (argc > 2) {
     usage();
     return 1;
