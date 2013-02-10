@@ -32,7 +32,7 @@ Coord lastAttack;
 /* === FUNCTIONS === */
 
 Coord *placeShip_comp(GameState *state, int shipLength) {
-  return 
+  NUM_SHIPS_TO_PLACE
 }
 
 Coord attack_comp(GameState *state) {

@@ -20,7 +20,7 @@
 /**
  *  Denotes lengths of ships to be placed.
  */
-int NUM_SHIPS_TO_PLACE = 3;
+static int NUM_SHIPS_TO_PLACE = 3;
 /*
  *  Handles the logic for the 'placing' phase.
  */
