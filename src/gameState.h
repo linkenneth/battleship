@@ -6,11 +6,8 @@
  */
 
 /* === BEGIN HEADERS === */
-#ifndef _INCLUDE_STDBOOL_H
-#define _INCLUDE_STDBOOL_H
 #include <stdbool.h>
-#endif
-#include <ship.h>
+#include "ship.h"
 /* === END HEADERS === */
 
 /**
@@ -31,15 +28,6 @@ typedef struct {
  *  other guy has.
  */
 typedef struct {
-   /**
-   *  The targets of a certain Player.
-   */
-  Coord targets[32];
-  /**
-   *  Length of targets.
-   */
-  Player* player;
-
-  Ship ships[];
-
+  Player *player;
+  Ship *ships;
 } GameState;
