@@ -30,10 +30,8 @@ typedef struct {
    *  A pointer to an array of ships that is defined by the player
    */
   Coord *parts;
-  
-  /*
-   *  The int is 0 if the ship has been sunk. 1 otherwise.
-   */
+ 
+  int size;
   bool sunk;
 } Ship;
 
@@ -45,10 +43,9 @@ typedef struct {
  *  that he has. Obviously, he shouldn't be able to see what ships the
  *  other guy has.
  */
-
-struct GameState {
+typedef struct {
   struct Player *player;
   Ship *ships;
-};
+}GameState;
 
 #endif

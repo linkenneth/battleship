@@ -7,18 +7,9 @@
  */
 
 /* === HEADERS === */
-#ifndef _INCLUDE_PLAYER_H
-#define _INCLUDE_PLAYER_H
 #include "player.h"
-#endif
-
-#ifndef _INCLUDE_GAMESTATE_H
-#define _INCLUDE_GAMESTATE_H
 #include "gameState.h"
-#endif
-
 #include "game.h"
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -33,7 +24,7 @@ int nextY = 0;
 /* === FUNCTIONS === */
 
 Ship placeShip_comp(GameState *state, int shipLength) {
-  int interval = NUM_SHIPS_TO_PLACE / BOARD_HEIGHT;
+  int interval = (int) (NUM_SHIPS / BOARD_HEIGHT);
   int startY = randInt(nextY, nextY + interval);
   nextY += interval;
   int startX = randInt(0, BOARD_WIDTH - shipLength);
@@ -55,7 +46,7 @@ Coord attack_comp(GameState *state) {
   Coord *c = (Coord *) malloc(sizeof(Coord));
   c->x = randSkewed(BOARD_WIDTH);
   c->y = randSkewed(BOARD_HEIGHT);
-  lastAttack = c;
+  lastAttack = *c;
   printf("Bob attacks (%d,%d)! OH SHIT\n", c->x, c->y);
   return lastAttack;
 }

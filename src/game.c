@@ -128,7 +128,7 @@ void start() {
  *  should be left to the game itself.
  */
 int main(int argc, char *argv[]) {
-  int numai;
+  inst numai;
   if (argc > 2) {
     usage();
     return 1;
