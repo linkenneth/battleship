@@ -16,17 +16,17 @@
  *  Denotes lengths of ships to be placed.
  */
 static int NUM_SHIPS_TO_PLACE = 3;
+
 /*
  *  Handles the logic for the 'placing' phase.
  */
 void placePhase(GameState *gamestates) {
   Player *currplayer; Ship *shiplist;
   for (int i = 0; i < 2; i++) {
-    *currplayer = *gamestates[i]->player;
-    *shiplist = *gamestates[i]->ships;
+    currplayer = gamestates[i].player;
+    shiplist = gamestates[i].ships;
     for (int k = 0; k < 6; k++) {
-       *shiplist[k] = *currplayer->placeShip(gamestates[i]);
-       *shiplist[k].sunk = false;
+       shiplist[k] = currplayer->placeShip(gamestates[i]);
     }
   }
 }
@@ -54,12 +54,10 @@ void attackPhase(GameState *gameStates, int shipnum) {
 	  curShipCoord.sunk = false;
 	  //print whether the attack was a hit
 	  free(attacked);
-        };
-      };
-    };
-  };
-  
-
+        }
+      }
+    }
+  }
 }
 
 /**
