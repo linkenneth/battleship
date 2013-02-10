@@ -8,13 +8,9 @@
  */
 
 /* === BEGIN HEADERS === */
-#ifndef _INCLUDE_GAME_H
-#define _INCLUDE_GAME_H
 #include "game.h"  // all other includes are here
-#endif
 
-
-#inlude <stdbool.h>
+#include <stdbool.h>
 /* === END HEADERS === */
 
 /**
