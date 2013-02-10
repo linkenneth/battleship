@@ -27,6 +27,7 @@
 /* === GLOBALS === */
 /** Attack attempts made and their results. */
 int g_Attacks[BOARD_WIDTH][BOARD_HEIGHT];
+Coord lastAttack;
 
 /* === FUNCTIONS === */
 
@@ -35,11 +36,11 @@ Coord *placeShip_comp(GameState *state, int shipLength) {
 }
 
 Coord attack_comp(GameState *state) {
-
+  
 }
 
 void attackResult_comp(int result) {
-  
+  g_Attacks[lastAttack.x][lastAttack.y] = result;
 }
 
 void opponentAttacked_comp(bool hit) {
