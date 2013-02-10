@@ -17,6 +17,11 @@
 #include "gameState.h"
 #endif
 
+#ifndef _INCLUDE_GAME_H
+#define _INCLUDE_GAME_H
+#include "game.h"
+#endif
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,9 +29,43 @@
 
 
 Coord *placeShip_human(GameState *state, int len) {
-  printf("Place a ship of length %d\n", len);
-  printf("Gimme the head's X coord:\n");
-  int hxCoor = atoi(gets(input));
+    int hxCoor = -1;
+    int hyCoor = -1;
+    int txCoor = -1;
+    int tyCoor = -1;
+    printf("Place a ship of length %d\n", len);
+    while (!hxCoor = -1) {
+        printf("Gimme the head's X coord (<10) :\n");
+        int hxCoor = atoi(gets(input));
+        if (hxCoor < 0 || hxCoor >= BOARD_WIDTH) {
+            hxCoor = -1;
+        }
+    }
+    while (!hyCoor = -1) {
+        printf("Gimme the head's X coord (<10) :\n");
+        int hyCoor = atoi(gets(input));
+        if (hyCoor < 0 || hyCoor >= BOARD_WIDTH) {
+            hyCoor = -1;
+        }
+    }
+    while (!txCoor = -1) {
+        printf("Gimme the head's X coord (<10) :\n");
+        int txCoor = atoi(gets(input));
+        if (txCoor < 0 || txCoor >= BOARD_WIDTH) {
+            txCoor = -1;
+        }
+    }
+    while (!tyCoor = -1) {
+        printf("Gimme the head's X coord (<10) :\n");
+        int tyCoor = atoi(gets(input));
+        if (tyCoor < 0 || tyCoor >= BOARD_WIDTH) {
+            tyCoor = -1;
+        }
+    }
+
+        
+
+int hyCoor = atoi(gets(input));
 
 }
 
