@@ -13,6 +13,7 @@
 #endif
 
 #include <stdlib.h>
+#include <math.h>
 /* === END HEADERS === */
 
 /**
@@ -24,4 +25,16 @@ bool **getBoard(GameState *state, Player *player);
 
 int randInt(int min, int max) {
   return rand() % (max - min) + min;
+}
+
+/**
+ *  Returns a 4-skewed random integer. Does that even make any sense?
+ *  Basically it's skewed towards the center.
+ */
+int randSkewed(int range) {
+  double sum = 0;
+  for (int i = 0; i < 4; i++) {
+    sum += rand() % (range - 4) + i;
+  }
+  return (int) round(sum / 4)
 }

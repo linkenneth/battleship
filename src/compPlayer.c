@@ -32,11 +32,14 @@ Coord lastAttack;
 /* === FUNCTIONS === */
 
 Coord *placeShip_comp(GameState *state, int shipLength) {
-  
+  return 
 }
 
 Coord attack_comp(GameState *state) {
-  
+  Coord c;
+  c.x = 5; c.y = 5;  // actually do stuff here
+  lastAttack = c;
+  return lastAttack;
 }
 
 void attackResult_comp(int result) {
