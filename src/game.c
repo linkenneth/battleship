@@ -64,20 +64,23 @@ int gameOver(GameState *gameStates, int shipnum) {
 void attackPhase(GameState *gameStates, int shipnum) {
   Coord attacked;
   int otherPlayer, shipLen, turn = 0;
-  Coord curShipCoord;
+  Coord *curShipCoord;
   bool hit = false, sunk = false;
   Ship ship;
-  while (!gameOver(gameStates, shipnum)) {
+  while (gameOver(gameStates, shipnum) == -1) {
     attacked = gameStates[turn].player->attack(&gameStates[turn]);
     for (int i = 0; i < shipnum; i++) { //for each ship in the attacked player
       otherPlayer = 1 - turn;
       shipLen = gameStates[otherPlayer].ships[i].size;
       for (int j = 0; j < shipLen; j++) { //for each coordinate in the ship
 	ship = gameStates[otherPlayer].ships[i];
-        curShipCoord = ship.parts[j];
-        if (curShipCoord.x == attacked.x && curShipCoord.y == attacked.y) {
+        curShipCoord = &ship.parts[j];
+        if (curShipCoord->x == attacked.x && curShipCoord->y == attacked.y) {
 	  //if the attacked Coord is a ship, sink that Coord
-	  curShipCoord.hit = true;
+	  if (curShipCoord->hit = true) {
+	    continue;
+	  }
+	  curShipCoord->hit = true;
 	  hit = true;
 	  sunk = false;
 	  for (int k = 0; k < shipLen; k++) {
@@ -90,14 +93,15 @@ void attackPhase(GameState *gameStates, int shipnum) {
 	    ship.sunk = true;
 	  }
 	  //print whether the attack was a hit
-	  gameStates[turn].player->attackResult(curShipCoord.hit);
+	  gameStates[turn].player->attackResult(curShipCoord->hit);
+	  gameStates[otherPlayer].player->opponentAttacked(curShipCoord->hit);
         }
       }
     }
     if (!hit) {
-      hit = false;
       turn = otherPlayer;
     }
+    hit = false;
   }
 }
 
@@ -113,7 +117,7 @@ void attackPhase(GameState *gameStates, int shipnum) {
 void start(int num) {
   Player *p1, *p2;
   if (num != 0) {
-    printf("%d AI player created. ", num);
+    printf("%d AI player created. \n", num);
     if (num == 1) {
       printf("Human player goes first!\n");
       p1 = newHumanPlayer();
@@ -128,6 +132,8 @@ void start(int num) {
   GameState gameStates[2];
   gameStates[0].player = p1;
   gameStates[1].player = p2;
+  gameStates[0].ships = (Ship *) malloc(sizeof(Ship) * NUM_SHIPS);
+  gameStates[1].ships = (Ship *) malloc(sizeof(Ship) * NUM_SHIPS);
   placePhase(gameStates);
   attackPhase(gameStates, NUM_SHIPS);
   printf("GAME OVER LOLOLOLO\n");
