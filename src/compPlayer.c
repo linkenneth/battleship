@@ -62,17 +62,11 @@ void opponentAttacked_comp(bool hit) {
 Player *newComputerPlayer() {
   Player *player;
   player = (Player *) malloc(sizeof(Player));
-  for (int i = 0; i < BOARD_WIDTH; i++) {
-    for (int j = 0; j < BOARD_HEIGHT; j++) {
-      printf("%d", g_Attacks[i][j]);
-      /* g_Attacks[i][j] = 0;  // necessary? */
-    }
-  }
 
   player->placeShip = &placeShip_comp;
   player->attack = &attack_comp;
   player->attackResult = &attackResult_comp;
   player->opponentAttacked = &opponentAttacked_comp;
-  strcpy("Bob", player->name);
+  strcpy(player->name, "Bob");
   return player;
 }
