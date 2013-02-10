@@ -1,3 +1,6 @@
+#ifndef _UTIL_H
+#define _UTIL_H
+
 /*
  *  This should include any functions that manipulate the game state as
  *  well as other general utility functions. So, for example, it shouldn't
@@ -6,24 +9,12 @@
  *  that the move is legal.
  */
 
-/* === BEGIN HEADERS === */
-#include "gameState.h"
-#include <stdlib.h>
-#include <math.h>
-/* === END HEADERS === */
-
-int randInt(int min, int max) {
-  return rand() % (max - min) + min;
-}
+int randInt(int min, int max);
 
 /**
  *  Returns a 4-skewed random integer. Does that even make any sense?
  *  Basically it's skewed towards the center.
  */
-int randSkewed(int range) {
-  double sum = 0;
-  for (int i = 0; i < 4; i++) {
-    sum += rand() % (range - 4) + i;
-  }
-  return (int) round(sum / 4)
-}
+int randSkewed(int range);
+
+#endif

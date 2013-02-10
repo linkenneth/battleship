@@ -37,10 +37,32 @@ void placePhase(GameState *gamestates) {
  *  Takes the array of GameStates
  *  
  */
-void attackPhase(GameState gameStates[]) {
-  while (not gameOver()) {
+void attackPhase(GameState *gameStates, int shipnum) {
+  Coord attacked;
+  int otherPlayer;
+  int shipLen;
+  Coord curShipCoord;
+  int turn = 0;
+  while (!gameOver()) {
+    attacked = gameStates[turn].player.attack(gameStates[turn]);
+    for (int i=0; i<shipnum; i++) { //for each ship in the attacked player
+      otherPlayer = -(turn-1)
+      shipLen = gameStates[otherPlayer].ships[i].size;
+      for (int j=0; j<shipLen; j++) { //for each coordinate in the ship
+        curShipCoord = gameStates[otherPlayer].ships[i][j]
+        if (curShipCoord.Equals(attacked)) {
+	  //if the attacked Coord is a ship, sink that Coord
+	  curShipCoord.sunk = false;
+	  //print whether the attack was a hit
+	  gameStates[turn].player.attackResult();
+	  
+        } else {
+	  turn = otherPlayer;
+	}
+      }
+    }
+  }
 
-  };
 }
 
 /**
@@ -48,9 +70,28 @@ void attackPhase(GameState gameStates[]) {
  *  Player 1 wins, returns 0 if Player 0 wins, and returns -1 if the game
  *  is not yet over.
  */
-bool gameOver(GameState gameStates[]) {
+bool gameOver(GameState *gameStates, int shipnum) {
   //check if at least one player has all ships sunk
-  for (i=0; i<
+  int shipLen;
+  int shipSunk;
+  for (int p=0; p<2; p++) {
+    int defeated = 0; //number of sunk ships
+    for (int i=0; i<shipnum; i++) {
+      shipLen = gameStates[p].ships[i].size;
+      shipSunk = 0;
+      for (int j=0;j<shipLen;j++) {
+	if (gameStates[p].ships[i][j].sunk) {
+	  shipSunk++;
+	};
+      };
+      if (shipSunk.Equals(shipLen)) {
+	defeated++;
+      };
+    };
+    if (defeated.Equals(shipnum)) {
+      return true;
+    };
+  }; 
   return false; 
 };
 
@@ -63,6 +104,7 @@ bool gameOver(GameState gameStates[]) {
  *  win is to one to sink all of their opponent's ships. NUM refers to the
  *  number of AI players. O for both human players. Will display a msg */
  */
+<<<<<<< HEAD
 void start(int num) {
   Player *p1, *p2;
   if (num != 0) {
@@ -83,6 +125,20 @@ void start(int num) {
   gamestates[1].player = p2;
   placePhase(gamestates);
   attackPhase(gamestates);
+=======
+void start() {
+  GameState gameStates[2];
+  int shipNum = 2;
+  int shipLen;
+  for (int i = 0; i < 2; i++) {
+    shipLen = gameStates[otherPlayer].ships[i].size;
+  }
+
+  placePhase(gameStates, shipnum);
+  while (!gameOver()){
+    attackPhase(gameStates);
+  };
+>>>>>>> 17bac0176fc7c5151aa69728f02adbcb00c7ab7c
 }
 
 
@@ -101,7 +157,7 @@ void start(int num) {
  *  should be left to the game itself.
  */
 int main(int argc, char *argv[]) {
-  int numai;
+  inst numai;
   if (argc > 2) {
     usage();
     return 1;
