@@ -15,8 +15,6 @@
 #inlude <stdbool.h>
 /* === END HEADERS === */
 
-#define BOARD_WIDTH 10
-#define BOARD_HEIGHT 10
 /**
  *  Denotes lengths of ships to be placed.
  */
@@ -78,7 +76,7 @@ void start() {
  *  these options to create a new game. The processing of the options
  *  should be left to the game itself.
  */
-int main(int argc, int *argv[]) {
+int main(int argc, char *argv[]) {
   // parse some shit, then
   start();
   return 0;
