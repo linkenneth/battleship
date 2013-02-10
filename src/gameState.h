@@ -6,11 +6,10 @@
  */
 
 /* === BEGIN HEADERS === */
-#ifndef _INCLUDE_STDBOOL_H
-#define _INCLUDE_STDBOOL_H
-#include <stdbool.h>
+#ifndef GAMESTATE_H
+#define GAMESTATE_H
 #endif
-#include <ship.h>
+#include <stdbool.h>
 /* === END HEADERS === */
 
 /**
@@ -23,6 +22,18 @@ typedef struct {
   unsigned int y;
 } Coord;
 
+typedef struct {
+  /*
+   *  A pointer to an array of ships that is defined by the player
+   */
+  Coord *parts;
+  
+  /*
+   *  The int is 0 if the ship has been sunk. 1 otherwise.
+   */
+  bool sunk;
+} Ship;
+
 /**
  *  The GameState object encapsulates all the data of a state of a
  *  game. Shit like Coords of yet-to-be-sunk targets, number of turns,
@@ -31,15 +42,6 @@ typedef struct {
  *  other guy has.
  */
 typedef struct {
-   /**
-   *  The targets of a certain Player.
-   */
-  Coord targets[32];
-  /**
-   *  Length of targets.
-   */
-  Player* player;
-
-  Ship ships[];
-
+  Player *player;
+  Ship *ships;
 } GameState;

@@ -11,6 +11,8 @@
 #define _INCLUDE_GAMESTATE_H
 #include "gameState.h"
 #endif
+
+#include <stdlib.h>
 /* === END HEADERS === */
 
 /**
@@ -19,3 +21,7 @@
  *  values indicate that there is not.
  */
 bool **getBoard(GameState *state, Player *player);
+
+int randInt(int min, int max) {
+  return rand() % (max - min) + min;
+}
