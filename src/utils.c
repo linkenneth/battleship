@@ -25,5 +25,5 @@ int randSkewed(int range) {
   for (int i = 0; i < 4; i++) {
     sum += rand() % (range - 4) + i;
   }
-  return (int) round(sum / 4)
+  return (int) round(sum / 4);
 }

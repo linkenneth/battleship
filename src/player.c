@@ -27,7 +27,6 @@
 #include <stdlib.h>
 /* === END HEADERS === */
 
-
 Coord *placeShip_human(GameState *state, int len) {
     int hxCoor = -1;
     int hyCoor = -1;

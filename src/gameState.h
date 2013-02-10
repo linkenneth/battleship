@@ -35,7 +35,6 @@ typedef struct {
   bool sunk;
 } Ship;
 
-
 /**
  *  The GameState object encapsulates all the data of a state of a
  *  game. Shit like Coords of yet-to-be-sunk targets, number of turns,
@@ -46,6 +45,6 @@ typedef struct {
 typedef struct {
   struct Player *player;
   Ship *ships;
-}GameState;
+} GameState;
 
 #endif
