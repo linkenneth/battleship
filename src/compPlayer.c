@@ -32,7 +32,7 @@ int nextY = 0;
 
 /* === FUNCTIONS === */
 
-Coord *placeShip_comp(GameState *state, int shipLength) {
+Ship placeShip_comp(GameState *state, int shipLength) {
   int interval = NUM_SHIPS_TO_PLACE / BOARD_HEIGHT;
   int startY = randInt(nextY, nextY + interval);
   nextY += interval;
@@ -43,13 +43,20 @@ Coord *placeShip_comp(GameState *state, int shipLength) {
     c[i].x = startX + i;
     c[i].y = startY + i;
   }
-  return c;
+  Ship ship;
+  ship.parts = c;
+  ship.sunk = false;
+  ship.size = shipLength;
+  printf("Bob secretly placed a ship.\n");
+  return ship;
 }
 
 Coord attack_comp(GameState *state) {
-  Coord c;
-  c.x = 5; c.y = 5;  // actually do stuff here
+  Coord *c = (Coord *) malloc(sizeof(Coord));
+  c->x = randSkewed(BOARD_WIDTH);
+  c->y = randSkewed(BOARD_HEIGHT);
   lastAttack = c;
+  printf("Bob attacks (%d,%d)! OH SHIT\n", c->x, c->y);
   return lastAttack;
 }
 
