@@ -12,10 +12,6 @@
 #include <stdbool.h>
 /* === END HEADERS === */
 
-/**
- *  Denotes lengths of ships to be placed.
- */
-static int NUM_SHIPS_TO_PLACE = 3;
 /*
  *  Handles the logic for the 'placing' phase.
  */
