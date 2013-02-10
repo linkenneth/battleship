@@ -9,14 +9,13 @@
 
 /* === BEGIN HEADERS === */
 #include "game.h"  // all other includes are here
-
 #include <stdbool.h>
 /* === END HEADERS === */
 
 /**
  *  Denotes lengths of ships to be placed.
  */
-int NUM_SHIPS_TO_PLACE = 3;
+static int NUM_SHIPS_TO_PLACE = 3;
 /*
  *  Handles the logic for the 'placing' phase.
  */
@@ -27,7 +26,7 @@ void placePhase(GameState *gamestates, int shipnum) {
     *currplayer = *gamestates[i]->player;
     *shiplist = *gamestates[i]->ships;
     for (int k = 0; k < shipnum; k++) {
-       *shiplist[k].parts= *currplayer->placeShip(gamestates[i]);
+       *shiplist[k] = *currplayer->placeShip(gamestates[i]);
        *shiplist[k].sunk = false;
     }
   }
@@ -74,13 +73,28 @@ void start() {
   attackPhase();
 }
 
+
+ void usage() {
+   char *help = "PLZ USE ./game [1~2] For number of AI. By default two humans.";
+   printf("%s", help);
+ }
+
 /**
  *  The main function should handle reading the various options and passing
  *  these options to create a new game. The processing of the options
  *  should be left to the game itself.
  */
 int main(int argc, char *argv[]) {
-  // parse some shit, then
-  start();
+  int numai;
+  if (argc > 2) {
+    usage();
+    return 1;
+  }
+  if (argc == 1) {
+    numai = 0;
+  } else {
+    numai = atoi(argv[1]);
+  }
+  start(numai);
   return 0;
 }
