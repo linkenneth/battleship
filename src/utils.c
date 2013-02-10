@@ -17,13 +17,13 @@ int randInt(int min, int max) {
 }
 
 /**
- *  Returns a 4-skewed random integer. Does that even make any sense?
+ *  Returns a 2-skewed random integer. Does that even make any sense?
  *  Basically it's skewed towards the center.
  */
 int randSkewed(int range) {
   double sum = 0;
-  for (int i = 0; i < 4; i++) {
-    sum += rand() % (range - 4) + i;
+  for (int i = 0; i < 2; i++) {
+    sum += rand() % (range - 2) + i;
   }
-  return (int) round(sum / 4);
+  return (int) round(sum / 2);
 }
