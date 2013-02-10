@@ -10,7 +10,7 @@ OBJECTS = $(patsubst src/%, build/%, $(SOURCES:.c=.o))
 default: compile
 
 compile: $(OBJECTS)
-	cc $(CFLAGS) -o build/battleInTheC $(OBJECTS)
+	cc $(CFLAGS) -o build/battleInTheC $(OBJECTS) -lm
 
 clean:
 	rm -f build/*
