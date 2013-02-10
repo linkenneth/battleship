@@ -12,6 +12,7 @@
 #define _INCLUDE_GAME_H
 #include "game.h"  // all other includes are here
 #endif
+#include "ship.h"
 /* === END HEADERS === */
 
 #define BOARD_WIDTH 10
@@ -19,19 +20,24 @@
 /**
  *  Denotes lengths of ships to be placed.
  */
-char SHIPS_TO_PLACE[] = { 3, 4, 5 };
 int NUM_SHIPS_TO_PLACE = 3;
-
-/**
+/*
  *  Handles the logic for the 'placing' phase.
  */
-void placePhase() {
-  for (int i = 0; i < NUM_SHIPS_TO_PLACE; i++) {
-    /* SHIPS_TO_PLACE[i] = 3; */
+void placePhase(GameState *gamestates, int shipnum) {
+  int nump = sizeof(*gamestates)/sizeof(GameState);
+  Player *currplayer; Ship *shiplist;
+  for (int i = 0; i < nump; i++) {
+    *currplayer = *gamestates[i]->player;
+    *shiplist = *gamestates[i]->ships;
+    for (int k = 0; k < shipnum; k++) {
+       *shiplist[k].parts= *currplayer->placeShip(gamestates[i]);
+       *shiplist[k].sunk = false;
+    }
   }
 }
 
-/**
+/*
  *  Handles the logic for the 'attacking' phase.
  */
 void attackPhase() {
