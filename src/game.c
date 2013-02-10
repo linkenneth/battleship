@@ -41,24 +41,26 @@ void attackPhase(GameState *gameStates, int shipnum) {
   int otherPlayer;
   int shipLen;
   Coord curShipCoord;
-  for (p=0; p<2; p++) {//for each player
-    //get coordinate that the player wants to attack
-    attacked = gameStates[p].player.attack(gameStates[p]);
-    for (i=0; i<shipnum; i++) { //for each ship in the attacked player
-      int otherPlayer = -(p-1)
-      int shipLen = gameStates[otherPlayer].ships[i].size;
-      for (j=0; j<shipLen; j++) { //for each coordinate in the ship
-        Coord curShipCoord = gameStates[otherPlayer].ships[i][j]
+  int turn = 0;
+  while (!gameOver()) {
+    attacked = gameStates[turn].player.attack(gameStates[turn]);
+    for (int i=0; i<shipnum; i++) { //for each ship in the attacked player
+      otherPlayer = -(turn-1)
+      shipLen = gameStates[otherPlayer].ships[i].size;
+      for (int j=0; j<shipLen; j++) { //for each coordinate in the ship
+        curShipCoord = gameStates[otherPlayer].ships[i][j]
         if (curShipCoord.Equals(attacked)) {
 	  //if the attacked Coord is a ship, sink that Coord
 	  curShipCoord.sunk = false;
 	  //print whether the attack was a hit
-	  free(attacked);
-        };
-      };
-    };
-  };
-  
+	  gameStates[turn].player.attackResult();
+	  
+        } else {
+	  turn = otherPlayer;
+	}
+      }
+    }
+  }
 
 }
 
