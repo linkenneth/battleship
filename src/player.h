@@ -39,7 +39,7 @@ typedef struct Player {
    *  attack. This function allows the player to be notified of whether or
    *  not the opponent's attack was successful.
    */
-  void (*opponentAttacked)(bool hit);
+  void (*opponentAttacked)(int hit);
   /**
    *  The name of the player.
    */
