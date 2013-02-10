@@ -22,6 +22,7 @@ struct Player;
 typedef struct {
   unsigned int x;
   unsigned int y;
+  bool hit;
 } Coord;
 
 typedef struct {
