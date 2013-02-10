@@ -21,7 +21,7 @@ Coord* genShipsArr (int len, int is_vertical, int head, int other);
 
 Ship placeShip_human(GameState *state, int len) {
     printf("Place a ship of length %d\n", len);
-    Ship *s = malloc(sizeof(Ship));
+    Ship *s = (Ship *) malloc(sizeof(Ship));
     s->size = len;
     s->sunk = 0;
     Coord *head = NULL;
