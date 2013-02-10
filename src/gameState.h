@@ -20,8 +20,8 @@ struct Player;
  *  x-y graph.
  */
 typedef struct {
-  unsigned int x;
-  unsigned int y;
+  int x;
+  int y;
   bool hit;
 } Coord;
 

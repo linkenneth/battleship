@@ -7,64 +7,54 @@
  */
 
 /* === BEGIN HEADERS === */
-#ifndef _INCLUDE_PLAYER_H
-#define _INCLUDE_PLAYER_H
+
 #include "player.h"
-#endif
-
-#ifndef _INCLUDE_GAMESTATE_H
-#define _INCLUDE_GAMESTATE_H
-#include "gameState.h"
-#endif
-
-#ifndef _INCLUDE_GAME_H
-#define _INCLUDE_GAME_H
 #include "game.h"
-#endif
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 /* === END HEADERS === */
+Coord* ask_for_coord();
+
 
 Coord *placeShip_human(GameState *state, int len) {
-    int hxCoor = -1;
-    int hyCoor = -1;
-    int txCoor = -1;
-    int tyCoor = -1;
     printf("Place a ship of length %d\n", len);
+    Coord *head = NULL;
+    Coord *tail = NULL;
     do {
-        while (!hxCoor = -1) {
-            printf("Gimme the head's X coord (<10) :\n");
-            int hxCoor = atoi(gets(input));
-            if (hxCoor < 0 || hxCoor >= BOARD_WIDTH) {
-                hxCoor = -1;
-            }
-        }
-        while (!hyCoor = -1) {
-            printf("Gimme the head's Y coord (<10) :\n");
-            int hyCoor = atoi(gets(input));
-            if (hyCoor < 0 || hyCoor >= BOARD_HEIGTH) {
-                hyCoor = -1;
-            }
-        }
-        while (!txCoor = -1) {
-            printf("Gimme the tail's X coord (<10) :\n");
-            int txCoor = atoi(gets(input));
-            if (txCoor < 0 || txCoor >= BOARD_WIDTH) {
-                txCoor = -1;
-            }
-        }
-        while (!tyCoor = -1) {
-            printf("Gimme the tail's Y coord (<10) :\n");
-            int tyCoor = atoi(gets(input));
-            if (tyCoor < 0 || tyCoor >= BOARD_HEIGTH) {
-                tyCoor = -1;
-            }
-        }
-    } while (hxCoor != txCoor || hyCoor != tyCoor); //Check if the coords are not diagonal
-    Coord *arrOfShips = genShipsArr(hxCoor, hyCoor, txCoor, tyCoor);
+        printf("For head of ship\n");
+        head = ask_for_coord();
+        printf("For tail of ship\n");
+        tail = ask_for_coord();
+    } while (head->x != tail->x || head->y != tail->y); //Check if the coords are not diagonal
+    //Coord *arrOfShips = genShipsArr(head->x, head->y, tail->x, tail->y);
+    return head;
 }
+
+Coord* ask_for_coord() {
+    Coord *c = malloc(sizeof(Coord));
+    c->x = -1;
+    c->y = -1;
+    while (c->x != -1) {
+        printf("Gimme the X coord (<10) :\n");
+        char *x;
+        c->x = atoi(gets(x));
+        if (c->x < 0 || c->x >= BOARD_WIDTH) {
+            c->x = -1;
+        }
+    }
+    while (c->y != -1) {
+        printf("Gimme the Y coord (<10) :\n");
+        char *y;
+        c->y = atoi(gets(y));
+        if (c->y < 0 || c->y >= BOARD_HEIGHT) {
+            c->y = -1;
+        }
+    }
+    return c;
+}
+    
 
 Coord *attack_human(GameState *state) {
   
@@ -77,8 +67,7 @@ Player *newHumanPlayer() {
 
 /**
  * Utility function. Generate an array of Coords.
- */
- Coord* arrOfShips (int hxCoor, int hyCoor, int txCoor, int tyCoor) {
+ Coord* genShipsArr (int hxCoor, int hyCoor, int txCoor, int tyCoor) {
      Coord *arrayOfCoords = NULL;
      int index = 0;
      if ((hxCoor - txCoor) != 0) {
@@ -102,3 +91,4 @@ Player *newHumanPlayer() {
      }
      return &arrayOfCoords;
  }
+ */
