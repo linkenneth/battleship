@@ -13,7 +13,6 @@
 #include "game.h"  // all other includes are here
 #endif
 
-#include "ship.h"
 #inlude <stdbool.h>
 /* === END HEADERS === */
 
