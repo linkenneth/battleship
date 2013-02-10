@@ -6,8 +6,10 @@
  */
 
 /* === BEGIN HEADERS === */
+#ifndef GAMESTATE_H
+#define GAMESTATE_H
+#endif
 #include <stdbool.h>
-#include "ship.h"
 /* === END HEADERS === */
 
 /**
@@ -19,6 +21,18 @@ typedef struct {
   unsigned int x;
   unsigned int y;
 } Coord;
+
+typedef struct {
+  /*
+   *  A pointer to an array of ships that is defined by the player
+   */
+  Coord *parts;
+  
+  /*
+   *  The int is 0 if the ship has been sunk. 1 otherwise.
+   */
+  bool sunk;
+} Ship;
 
 /**
  *  The GameState object encapsulates all the data of a state of a
