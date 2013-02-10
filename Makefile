@@ -10,7 +10,7 @@ OBJECTS = $(patsubst src/%, build/%, $(SOURCES:.c=.o))
 default: compile
 
 compile: $(OBJECTS)
-	cc $(CFLAGS) -o build/battleship $(OBJECTS)
+	cc $(CFLAGS) -o build/battleInTheC $(OBJECTS)
 
 clean:
 	rm -f build/*
@@ -23,4 +23,4 @@ git:
 	git commit -m "auto-commit via MAKE"
 
 run:
-	build/battleship
+	build/battleInTheC

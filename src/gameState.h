@@ -10,6 +10,7 @@
 #define _INCLUDE_STDBOOL_H
 #include <stdbool.h>
 #endif
+#include <ship.h>
 /* === END HEADERS === */
 
 /**
@@ -30,18 +31,15 @@ typedef struct {
  *  other guy has.
  */
 typedef struct {
-  /**
-   *  Every guess is a turn, regardless of whether it is successful (in
-   *  which case it is the same player's turn again) or not (in which case
-   *  it is the opponent's turn).
-   */
-  unsigned int turnsTaken;
-  /**
+   /**
    *  The targets of a certain Player.
    */
   Coord targets[32];
   /**
    *  Length of targets.
    */
-  unsigned int targetsLeft;
+  Player* player;
+
+  Ship ships[];
+
 } GameState;
