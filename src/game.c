@@ -13,10 +13,11 @@
 #include <stdio.h>
 /* === END HEADERS === */
 
+int SHIPS_TO_PLACE[NUM_SHIPS] = { 2, 2, 3, 3, 4, 5 };
+
 /**
  *  Denotes lengths of ships to be placed.
  */
-static int NUM_SHIPS_TO_PLACE = 3;
 /*
  *  Handles the logic for the 'placing' phase.
  */
@@ -25,8 +26,8 @@ void placePhase(GameState *gamestates) {
   for (int i = 0; i < 2; i++) {
     currplayer = gamestates[i].player;
     shiplist = gamestates[i].ships;
-    for (int k = 0; k < 6; k++) {
-      shiplist[k] = currplayer->placeShip(&gamestates[i], 3);  // change 3
+    for (int k = 0; k < NUM_SHIPS; k++) {
+      shiplist[k] = currplayer->placeShip(&gamestates[i], SHIPS_TO_PLACE[k]);
     }
   }
 }
@@ -36,29 +37,23 @@ void placePhase(GameState *gamestates) {
  *  Player 1 wins, returns 0 if Player 0 wins, and returns -1 if the game
  *  is not yet over.
  */
-bool gameOver(GameState *gameStates, int shipnum) {
+int gameOver(GameState *gameStates, int shipnum) {
   //check if at least one player has all ships sunk
-  int shipLen;
-  int shipSunk;
-  for (int p=0; p<2; p++) {
-    int defeated = 0; //number of sunk ships
-    for (int i=0; i<shipnum; i++) {
-      shipLen = gameStates[p].ships[i].size;
-      shipSunk = 0;
-      for (int j=0;j<shipLen;j++) {
-	if (gameStates[p].ships[i].parts[j].hit) {
-	  shipSunk++;
-	};
-      };
-      if (shipSunk == shipLen) {
-	defeated++;
-      };
-    };
-    if (defeated == shipnum) {
-      return true;
+  int shipsSunk;
+  Ship ship;
+  for (int player = 0; player < 2; player++) {
+    shipsSunk = 0;
+    for (int i = 0; i < shipnum; i++) {
+      ship = gameStates[player].ships[i];
+      if (ship.sunk) {
+	shipsSunk++;
+      }
+    }
+    if (shipsSunk == shipnum) {
+      return 1 - player;
     };
   }; 
-  return false; 
+  return -1; 
 };
 
 /*
@@ -68,29 +63,42 @@ bool gameOver(GameState *gameStates, int shipnum) {
  */
 void attackPhase(GameState *gameStates, int shipnum) {
   Coord attacked;
-  int otherPlayer;
-  int shipLen;
+  int otherPlayer, shipLen, turn = 0;
   Coord curShipCoord;
-  int turn = 0;
+  bool hit = false, sunk = false;
+  Ship ship;
   while (!gameOver(gameStates, shipnum)) {
     attacked = gameStates[turn].player->attack(&gameStates[turn]);
-    for (int i=0; i<shipnum; i++) { //for each ship in the attacked player
-      otherPlayer = -(turn-1);
+    for (int i = 0; i < shipnum; i++) { //for each ship in the attacked player
+      otherPlayer = 1 - turn;
       shipLen = gameStates[otherPlayer].ships[i].size;
-      for (int j=0; j<shipLen; j++) { //for each coordinate in the ship
-        curShipCoord = gameStates[otherPlayer].ships[i].parts[j];
+      for (int j = 0; j < shipLen; j++) { //for each coordinate in the ship
+	ship = gameStates[otherPlayer].ships[i];
+        curShipCoord = ship.parts[j];
         if (curShipCoord.x == attacked.x && curShipCoord.y == attacked.y) {
 	  //if the attacked Coord is a ship, sink that Coord
 	  curShipCoord.hit = true;
+	  hit = true;
+	  sunk = false;
+	  for (int k = 0; k < shipLen; k++) {
+	    if (ship.parts[k].hit) {
+	      sunk = true;
+	      break;
+	    }
+	  }
+	  if (sunk) {
+	    ship.sunk = true;
+	  }
 	  //print whether the attack was a hit
 	  gameStates[turn].player->attackResult(curShipCoord.hit);
-        } else {
-	  turn = otherPlayer;
-	}
+        }
       }
     }
+    if (!hit) {
+      hit = false;
+      turn = otherPlayer;
+    }
   }
-
 }
 
 /**
@@ -122,6 +130,7 @@ void start(int num) {
   gameStates[1].player = p2;
   placePhase(gameStates);
   attackPhase(gameStates, NUM_SHIPS);
+  printf("GAME OVER LOLOLOLO\n");
 }
 
 

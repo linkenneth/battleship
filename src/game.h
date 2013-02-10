@@ -5,7 +5,7 @@
 #define BOARD_WIDTH 10
 #define BOARD_HEIGHT 10
 
-#define NUM_SHIPS 3
+#define NUM_SHIPS 6
 
 /*
  *  This file is purely for including stuff when loading game.c. Any
