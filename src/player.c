@@ -7,60 +7,52 @@
  */
 
 /* === BEGIN HEADERS === */
-#ifndef _INCLUDE_PLAYER_H
-#define _INCLUDE_PLAYER_H
+
 #include "player.h"
-#endif
-
-#ifndef _INCLUDE_GAMESTATE_H
-#define _INCLUDE_GAMESTATE_H
-#include "gameState.h"
-#endif
-
-#ifndef _INCLUDE_GAME_H
-#define _INCLUDE_GAME_H
 #include "game.h"
-#endif
-
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 /* === END HEADERS === */
+Coord* ask_for_coord();
+
 
 Coord *placeShip_human(GameState *state, int len) {
-    int hxCoor = -1;
-    int hyCoor = -1;
-    int txCoor = -1;
-    int tyCoor = -1;
     printf("Place a ship of length %d\n", len);
+    Coord *head = NULL;
+    Coord *tail = NULL;
     do {
         printf("For head of ship\n");
-        Coord head = ask_for_coord();
+        head = ask_for_coord();
         printf("For tail of ship\n");
-        Coord tail = ask_for_coord();
-    } while (head.x != tail.x || head.y != tail.y); //Check if the coords are not diagonal
-    Coord *arrOfShips = genShipsArr(hxCoor, hyCoor, txCoor, tyCoor);
+        tail = ask_for_coord();
+    } while (head->x != tail->x || head->y != tail->y); //Check if the coords are not diagonal
+    //Coord *arrOfShips = genShipsArr(head->x, head->y, tail->x, tail->y);
+    return head;
 }
 
 Coord* ask_for_coord() {
-    Coord c = NULL;
-    c.x = -1;
-    c.y = -1;
-    while (!c.x = -1) {
+    Coord *c = malloc(sizeof(Coord));
+    c->x = -1;
+    c->y = -1;
+    while (c->x != -1) {
         printf("Gimme the X coord (<10) :\n");
-        int c.x = atoi(gets(input));
-        if (c.x < 0 || c.x >= BOARD_WIDTH) {
-            c.x = -1;
+        char *x;
+        c->x = atoi(gets(x));
+        if (c->x < 0 || c->x >= BOARD_WIDTH) {
+            c->x = -1;
         }
     }
-    while (!c.y = -1) {
+    while (c->y != -1) {
         printf("Gimme the Y coord (<10) :\n");
-        int c.y = atoi(gets(input));
-        if (c.y < 0 || c.y >= BOARD_HEIGTH) {
-            c.y = -1;
+        char *y;
+        c->y = atoi(gets(y));
+        if (c->y < 0 || c->y >= BOARD_HEIGHT) {
+            c->y = -1;
         }
     }
-    return &c;
+    return c;
 }
     
 
@@ -75,8 +67,7 @@ Player *newHumanPlayer() {
 
 /**
  * Utility function. Generate an array of Coords.
- */
- Coord* arrOfShips (int hxCoor, int hyCoor, int txCoor, int tyCoor) {
+ Coord* genShipsArr (int hxCoor, int hyCoor, int txCoor, int tyCoor) {
      Coord *arrayOfCoords = NULL;
      int index = 0;
      if ((hxCoor - txCoor) != 0) {
@@ -100,3 +91,4 @@ Player *newHumanPlayer() {
      }
      return &arrayOfCoords;
  }
+ */

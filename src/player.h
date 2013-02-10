@@ -10,6 +10,7 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
 #include "gameState.h"
+
 /* === END HEADERS === */
 
 typedef struct Player {
