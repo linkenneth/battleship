@@ -10,6 +10,7 @@
 /* === BEGIN HEADERS === */
 #include "game.h"  // all other includes are here
 #include <stdbool.h>
+#include <stdio.h>
 /* === END HEADERS === */
 
 /**
@@ -59,25 +60,41 @@ bool gameOver(GameState gameStates[]) {
  *  their ships on the board. After the 'placing' phase is over, the
  *  'attacking' phase begins, in which players take turns guessing and
  *  attacking where they think the opponent's ship is. The first player to
- *  win is to one to sink all of their opponent's ships.
+ *  win is to one to sink all of their opponent's ships. NUM refers to the
+ *  number of AI players. O for both human players. Will display a msg */
  */
-void start() {
-  GameState gameStates[2];
-  for (int i = 0; i < 2; i++) {
-    gameStates[i].turnsTaken = 0;
-    gameStates[i].targetsLeft = 0;
+void start(int num) {
+  Player *p1, *p2;
+  if (num != 0) {
+    printf("%d AI player created. ", num);
+    if (num == 1) {
+      printf("Human player goes first!\n");
+      p1 = newHumanPlayer();
+      p2 = newComputerPlayer();
+    } else {
+      p1 = newComputerPlayer();
+      p2 = newComputerPlayer();
+    }
+  } else {
+    printf("Two human players selected! GLHF!\n");
   }
-
-  placePhase();
-  attackPhase();
+  GameState gameStates[2];
+  gamestates[0].player = p1;
+  gamestates[1].player = p2;
+  placePhase(gamestates);
+  attackPhase(gamestates);
 }
 
 
  void usage() {
-   char *help = "PLZ USE ./game [1~2] For number of AI. By default two humans.";
+   char *help = "PLZ USE ./game [1~2] (For number of AI. By default two humans.)\n";
    printf("%s", help);
  }
 
+ void aimsg() {
+   char *help = "Too many AI players! Only up to 2 allowed.\n";
+   printf("%s", help);
+ }
 /**
  *  The main function should handle reading the various options and passing
  *  these options to create a new game. The processing of the options
@@ -93,6 +110,9 @@ int main(int argc, char *argv[]) {
     numai = 0;
   } else {
     numai = atoi(argv[1]);
+    if (numai > 2) {
+      aimsg();
+    }
   }
   start(numai);
   return 0;
