@@ -12,6 +12,7 @@
 #define _INCLUDE_GAME_H
 #include "game.h"  // all other includes are here
 #endif
+#inlude <stdbool.h>
 /* === END HEADERS === */
 
 #define BOARD_WIDTH 10
@@ -33,9 +34,13 @@ void placePhase() {
 
 /**
  *  Handles the logic for the 'attacking' phase.
+ *  Takes the array of GameStates
+ *  
  */
-void attackPhase() {
+void attackPhase(GameState gameStates[]) {
+  while (not gameOver()) {
 
+  };
 }
 
 /**
@@ -43,7 +48,11 @@ void attackPhase() {
  *  Player 1 wins, returns 0 if Player 0 wins, and returns -1 if the game
  *  is not yet over.
  */
-signed int gameOver();
+bool gameOver(GameState gameStates[]) {
+  //check if at least one player has all ships sunk
+  for (i=0; i<
+  return false; 
+};
 
 /**
  *  Starts the game. A game consists of two phases: a 'placing' phase and a
