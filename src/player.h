@@ -21,7 +21,7 @@ typedef struct {
    *  place. Returns an array of SHIPLENGTH long that specifies all the
    *  Coords of where to place the ship. THIS FUNCTION SHOULD ERROR CHECK.
    */
-  Coord *(*placeShip)(GameState *, int);
+  Ship (*placeShip)(GameState *, int);
   /**
    *  This function attacks the opponent's ships. Must return a single
    *  Coord specifying the (x,y) coordinates that the player chooses to
