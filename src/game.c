@@ -25,13 +25,13 @@ int NUM_SHIPS_TO_PLACE = 3;
 /*
  *  Handles the logic for the 'placing' phase.
  */
-void placePhase(GameState *gamestates, int shipnum) {
+void placePhase(GameState *gamestates) {
   int nump = sizeof(*gamestates)/sizeof(GameState);
   Player *currplayer; Ship *shiplist;
-  for (int i = 0; i < nump; i++) {
+  for (int i = 0; i < 2; i++) {
     *currplayer = *gamestates[i]->player;
     *shiplist = *gamestates[i]->ships;
-    for (int k = 0; k < shipnum; k++) {
+    for (int k = 0; k < 6; k++) {
        *shiplist[k] = *currplayer->placeShip(gamestates[i]);
        *shiplist[k].sunk = false;
     }
