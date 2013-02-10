@@ -22,14 +22,43 @@ static int NUM_SHIPS_TO_PLACE = 3;
 void placePhase(GameState *gamestates) {
   Player *currplayer; Ship *shiplist;
   for (int i = 0; i < 2; i++) {
-    *currplayer = *gamestates[i]->player;
-    *shiplist = *gamestates[i]->ships;
+    currplayer = gamestates[i].player;
+    shiplist = gamestates[i].ships;
     for (int k = 0; k < 6; k++) {
-       *shiplist[k] = *currplayer->placeShip(gamestates[i]);
-       *shiplist[k].sunk = false;
+      shiplist[k] = currplayer->placeShip(gamestates + i, 3);  // change 3
     }
   }
 }
+
+/**
+ *  Returns a number depending on whether the game is over. Returns 1 if
+ *  Player 1 wins, returns 0 if Player 0 wins, and returns -1 if the game
+ *  is not yet over.
+ */
+bool gameOver(GameState *gameStates, int shipnum) {
+  //check if at least one player has all ships sunk
+  int shipLen;
+  int shipSunk;
+  for (int p=0; p<2; p++) {
+    int defeated = 0; //number of sunk ships
+    for (int i=0; i<shipnum; i++) {
+      shipLen = gameStates[p].ships[i].size;
+      shipSunk = 0;
+      for (int j=0;j<shipLen;j++) {
+	if (gameStates[p].ships[i][j].sunk) {
+	  shipSunk++;
+	};
+      };
+      if (shipSunk.Equals(shipLen)) {
+	defeated++;
+      };
+    };
+    if (defeated.Equals(shipnum)) {
+      return true;
+    };
+  }; 
+  return false; 
+};
 
 /*
  *  Handles the logic for the 'attacking' phase.
@@ -63,36 +92,6 @@ void attackPhase(GameState *gameStates, int shipnum) {
   }
 
 }
-
-/**
- *  Returns a number depending on whether the game is over. Returns 1 if
- *  Player 1 wins, returns 0 if Player 0 wins, and returns -1 if the game
- *  is not yet over.
- */
-bool gameOver(GameState *gameStates, int shipnum) {
-  //check if at least one player has all ships sunk
-  int shipLen;
-  int shipSunk;
-  for (int p=0; p<2; p++) {
-    int defeated = 0; //number of sunk ships
-    for (int i=0; i<shipnum; i++) {
-      shipLen = gameStates[p].ships[i].size;
-      shipSunk = 0;
-      for (int j=0;j<shipLen;j++) {
-	if (gameStates[p].ships[i][j].sunk) {
-	  shipSunk++;
-	};
-      };
-      if (shipSunk.Equals(shipLen)) {
-	defeated++;
-      };
-    };
-    if (defeated.Equals(shipnum)) {
-      return true;
-    };
-  }; 
-  return false; 
-};
 
 /**
  *  Starts the game. A game consists of two phases: a 'placing' phase and a

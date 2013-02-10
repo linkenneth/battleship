@@ -12,8 +12,6 @@
 #include <stdbool.h>
 /* === END HEADERS === */
 
-struct Player;
-
 /**
  *  Abstraction of the coordinates of the board. The numbering starts on
  *  the bottom left corner of the board at (0,0) and behaves like a normal
@@ -44,7 +42,7 @@ typedef struct {
  *  other guy has.
  */
 typedef struct {
-  struct Player *player;
+  Player *player;
   Ship *ships;
 }GameState;
 
