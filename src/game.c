@@ -102,9 +102,8 @@ bool gameOver(GameState *gameStates, int shipnum) {
  *  'attacking' phase begins, in which players take turns guessing and
  *  attacking where they think the opponent's ship is. The first player to
  *  win is to one to sink all of their opponent's ships. NUM refers to the
- *  number of AI players. O for both human players. Will display a msg */
+ *  number of AI players. O for both human players. Will display a msg.
  */
-<<<<<<< HEAD
 void start(int num) {
   Player *p1, *p2;
   if (num != 0) {
@@ -125,20 +124,6 @@ void start(int num) {
   gamestates[1].player = p2;
   placePhase(gamestates);
   attackPhase(gamestates);
-=======
-void start() {
-  GameState gameStates[2];
-  int shipNum = 2;
-  int shipLen;
-  for (int i = 0; i < 2; i++) {
-    shipLen = gameStates[otherPlayer].ships[i].size;
-  }
-
-  placePhase(gameStates, shipnum);
-  while (!gameOver()){
-    attackPhase(gameStates);
-  };
->>>>>>> 17bac0176fc7c5151aa69728f02adbcb00c7ab7c
 }
 
 
