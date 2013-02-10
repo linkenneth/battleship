@@ -33,7 +33,7 @@ typedef struct {
    *  attack. This function allows the player to be notified of whether or
    *  not his attack was successful.
    */
-  void (*attackResult)(bool success);
+  void (*attackResult)(int result);
   /**
    *  The game calls this function after the opponent attempts an
    *  attack. This function allows the player to be notified of whether or

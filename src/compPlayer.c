@@ -6,7 +6,7 @@
  *  respective functions when it wants.
  */
 
-/* === BEGIN HEADERS === */
+/* === HEADERS === */
 #ifndef _INCLUDE_PLAYER_H
 #define _INCLUDE_PLAYER_H
 #include "player.h"
@@ -17,21 +17,18 @@
 #include "gameState.h"
 #endif
 
-#ifndef _INCLUDE_STDBOOL_H
-#define _INCLUDE_STDBOOL_H
+#include "game.h"
+
 #include <stdbool.h>
-#endif
-
-#ifndef _INCLUDE_STDIO_H
-#define _INCLUDE_STDIO_H
 #include <stdio.h>
-#endif
-
-#ifndef _INCLUDE_STDLIB_H
-#define _INCLUDE_STDLIB_H
 #include <stdlib.h>
-#endif
-/* === END HEADERS === */
+#include <string.h>
+
+/* === GLOBALS === */
+/** Attack attempts made and their results. */
+int g_Attacks[BOARD_WIDTH][BOARD_HEIGHT];
+
+/* === FUNCTIONS === */
 
 Coord *placeShip_comp(GameState *state, int shipLength) {
   
@@ -41,20 +38,28 @@ Coord attack_comp(GameState *state) {
 
 }
 
-void attackResult_comp(bool success) {
-
+void attackResult_comp(int result) {
+  
 }
 
 void opponentAttacked_comp(bool hit) {
-
+  // don't care
 }
 
 Player *newComputerPlayer() {
-  Player player;
-  player.placeShip = &placeShip_comp;
-  player.attack = &attack_comp;
-  player.attackResult = &attackResult_comp;
-  player.opponentAttacked = &opponentAttacked_comp;
-  player.name = "Bob";
+  Player *player;
+  player = (Player *) malloc(sizeof(Player));
+  for (int i = 0; i < BOARD_WIDTH; i++) {
+    for (int j = 0; j < BOARD_HEIGHT; j++) {
+      printf("%d", g_Attacks[i][j]);
+      /* g_Attacks[i][j] = 0;  // necessary? */
+    }
+  }
+
+  player->placeShip = &placeShip_comp;
+  player->attack = &attack_comp;
+  player->attackResult = &attackResult_comp;
+  player->opponentAttacked = &opponentAttacked_comp;
+  strcpy("Bob", player->name);
   return player;
 }
