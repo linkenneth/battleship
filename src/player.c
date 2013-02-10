@@ -16,10 +16,14 @@
 
 /* === END HEADERS === */
 Coord* ask_for_coord();
+Coord* genShipsArr (int len, int is_vertical, int head, int other);
 
 
-Coord *placeShip_human(GameState *state, int len) {
+Ship placeShip_human(GameState *state, int len) {
     printf("Place a ship of length %d\n", len);
+    Ship *s = malloc(sizeof(Ship));
+    s->size = len;
+    s->sunk = 0;
     Coord *head = NULL;
     Coord *tail = NULL;
     do {
@@ -27,16 +31,23 @@ Coord *placeShip_human(GameState *state, int len) {
         head = ask_for_coord();
         printf("For tail of ship\n");
         tail = ask_for_coord();
-    } while (head->x != tail->x || head->y != tail->y); //Check if the coords are not diagonal
-    //Coord *arrOfShips = genShipsArr(head->x, head->y, tail->x, tail->y);
-    return head;
+    } while ((head->x != tail->x || head->y != tail->y) &&
+             ((abs(head->x - tail->x)) == len || (abs(head->y - tail->y)) == len)); //Check if the coords are not diagonal and correct size
+    Coord *arrOfShips = NULL;
+    if ((head->x - tail->x) != 0) {
+        arrOfShips = genShipsArr(len, 0, (head->x > tail->x) ? tail->x : head->x, head->y);
+    } else {
+        arrOfShips = genShipsArr(len, 1, (head->y > tail->y) ? tail->y : head->y, head->x);
+    }
+    s->parts = arrOfShips;
+    return *s;
 }
 
 Coord* ask_for_coord() {
     Coord *c = malloc(sizeof(Coord));
     c->x = -1;
     c->y = -1;
-    while (c->x != -1) {
+    while (c->x == -1) {
         printf("Gimme the X coord (<10) :\n");
         char *x;
         c->x = atoi(gets(x));
@@ -44,7 +55,7 @@ Coord* ask_for_coord() {
             c->x = -1;
         }
     }
-    while (c->y != -1) {
+    while (c->y == -1) {
         printf("Gimme the Y coord (<10) :\n");
         char *y;
         c->y = atoi(gets(y));
@@ -56,39 +67,56 @@ Coord* ask_for_coord() {
 }
     
 
-Coord *attack_human(GameState *state) {
-  
+Coord attack_human(GameState *state) {
+    return *ask_for_coord();
 }
 
+void attack_result(int result) {
+    if (result) {
+        printf("You hit the opponent!!");
+    } else {
+        printf("You missed.");
+    }
+}
+
+void opponent_attacked(int hit) {
+    if (hit) {
+        printf("You were hit!!");
+    } else {
+        printf("He missed.");
+    }
+}
+
+/**
+ * Constructor function
+ */
 Player *newHumanPlayer() {
-  Player player;
+  Player *player = malloc(sizeof(Player));
+  player->placeShip = &placeShip_human;
+  player->attack = &attack_human;
+  player->attackResult = &attack_result;
+  player->opponentAttacked = &opponent_attacked;
+  return player;
 }
 
 
 /**
  * Utility function. Generate an array of Coords.
- Coord* genShipsArr (int hxCoor, int hyCoor, int txCoor, int tyCoor) {
-     Coord *arrayOfCoords = NULL;
-     int index = 0;
-     if ((hxCoor - txCoor) != 0) {
-        arrayOfCoords = Coord array[hxCoor-txCoor];
-        for (int i = hxCoor; i < txCoor; i++) {
-            Coord c;
-            c.x = i;
-            c.y = hyCoor;
-            arrayOfCoords[index] = c;
-            index++;
-        }
-     } else {
-        arrayOfCoords = Coord array[hyCoor-tyCoor];
-        for (int i = hyCoor; i < tyCoor; i++) {
-            Coord c;
-            c.x = hxCoor;
-            c.y = i;
-            arrayOfCoords[index] = c;
-            index++;
-        }
-     }
-     return &arrayOfCoords;
- }
  */
+ Coord* genShipsArr (int len, int is_vertical, int head, int other) {
+     Coord *array = malloc(sizeof(Coord)*len);
+     int index = 0;
+     while (index < len) {
+         Coord *c = malloc(sizeof(Coord));
+         if (!is_vertical) {
+             c->x = head + index;
+             c->y = other;
+         } else {
+             c->x = other;
+             c->y = head + index;
+         }
+         array[index] = *c;
+         index ++;
+     }
+     return array;
+ }
