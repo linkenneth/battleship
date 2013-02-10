@@ -71,12 +71,14 @@ void attackPhase(GameState *gameStates, int shipnum) {
  */
 bool gameOver(GameState *gameStates, int shipnum) {
   //check if at least one player has all ships sunk
+  int shipLen;
+  int shipSunk;
   for (int p=0; p<2; p++) {
     int defeated = 0; //number of sunk ships
     for (int i=0; i<shipnum; i++) {
-      int shipLen = gameStates[p].ships[i].size;
-      int shipSunk = 0;
-      for (j=0;j<shipLen;j++) {
+      shipLen = gameStates[p].ships[i].size;
+      shipSunk = 0;
+      for (int j=0;j<shipLen;j++) {
 	if (gameStates[p].ships[i][j].sunk) {
 	  shipSunk++;
 	};
@@ -103,12 +105,13 @@ bool gameOver(GameState *gameStates, int shipnum) {
 void start() {
   GameState gameStates[2];
   int shipNum = 2;
+  int shipLen;
   for (int i = 0; i < 2; i++) {
-    int shipLen = gameStates[otherPlayer].ships[i].size;
+    shipLen = gameStates[otherPlayer].ships[i].size;
   }
 
   placePhase(gameStates, shipnum);
-  while (not gameOver()){
+  while (!gameOver()){
     attackPhase(gameStates);
   };
 }
