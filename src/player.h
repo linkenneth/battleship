@@ -7,13 +7,12 @@
  */
 
 /* === BEGIN HEADERS === */
-#ifndef _INCLUDE_GAMESTATE_H
-#define _INCLUDE_GAMESTATE_H
+#ifndef _PLAYER_H
+#define _PLAYER_H
 #include "gameState.h"
-#endif
 /* === END HEADERS === */
 
-typedef struct {
+struct Player {
   /**
    *  This function places a ship on the board. This function takes a
    *  GameState that gives the player information of the data, and a second
@@ -27,7 +26,7 @@ typedef struct {
    *  Coord specifying the (x,y) coordinates that the player chooses to
    *  attack.
    */
-  Coord (*attack)(GameState *);
+  Coord (*attack)(struct GameState *);
   /**
    *  The game calls this function after this player attempts an
    *  attack. This function allows the player to be notified of whether or
@@ -44,15 +43,17 @@ typedef struct {
    *  The name of the player.
    */
   char name[32];
-} Player;
+};
 
 /**
  *  This returns a pointer to a new human player.
  */
-Player *newHumanPlayer();
+struct Player *newHumanPlayer();
 /**
  *  This returns a pointer to a new computer player.
  */
-Player *newComputerPlayer();
+struct Player *newComputerPlayer();
 
 /* Other details depends on implementation. */
+
+#endif

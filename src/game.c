@@ -8,20 +8,14 @@
  */
 
 /* === BEGIN HEADERS === */
-#ifndef _INCLUDE_GAME_H
-#define _INCLUDE_GAME_H
 #include "game.h"  // all other includes are here
-#endif
-
-#include "ship.h"
-#inlude <stdbool.h>
-#include <stdio.h>
+#include <stdbool.h>
 /* === END HEADERS === */
 
 /**
  *  Denotes lengths of ships to be placed.
  */
-int NUM_SHIPS_TO_PLACE = 3;
+static int NUM_SHIPS_TO_PLACE = 3;
 /*
  *  Handles the logic for the 'placing' phase.
  */

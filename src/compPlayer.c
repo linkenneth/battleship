@@ -28,15 +28,29 @@
 /** Attack attempts made and their results. */
 int g_Attacks[BOARD_WIDTH][BOARD_HEIGHT];
 Coord lastAttack;
+int nextY = 0;
 
 /* === FUNCTIONS === */
 
 Coord *placeShip_comp(GameState *state, int shipLength) {
-  
+  int interval = NUM_SHIPS_TO_PLACE / BOARD_HEIGHT;
+  int startY = randInt(nextY, nextY + interval);
+  nextY += interval;
+  int startX = randInt(0, BOARD_WIDTH - shipLength);
+
+  Coord *c = (Coord *) malloc(shipLength * sizeof(Coord));
+  for (int i = 0; i < shipLength; i++) {
+    c[i].x = startX + i;
+    c[i].y = startY + i;
+  }
+  return c;
 }
 
 Coord attack_comp(GameState *state) {
-  
+  Coord c;
+  c.x = 5; c.y = 5;  // actually do stuff here
+  lastAttack = c;
+  return lastAttack;
 }
 
 void attackResult_comp(int result) {

@@ -7,12 +7,11 @@
  */
 
 /* === BEGIN HEADERS === */
-#ifndef _INCLUDE_GAMESTATE_H
-#define _INCLUDE_GAMESTATE_H
+#ifndef _UTIL_H
+#define _UTIL_H
 #include "gameState.h"
-#endif
-
 #include <stdlib.h>
+#include <math.h>
 /* === END HEADERS === */
 
 /**
@@ -20,8 +19,21 @@
  *  indicate that there is a ship/target at the location, while false
  *  values indicate that there is not.
  */
-bool **getBoard(GameState *state, Player *player);
+bool **getBoard(struct GameState *state, struct Player *player);
 
 int randInt(int min, int max) {
   return rand() % (max - min) + min;
 }
+
+/**
+ *  Returns a 4-skewed random integer. Does that even make any sense?
+ *  Basically it's skewed towards the center.
+ */
+int randSkewed(int range) {
+  double sum = 0;
+  for (int i = 0; i < 4; i++) {
+    sum += rand() % (range - 4) + i;
+  }
+  return (int) round(sum / 4)
+}
+#endif
